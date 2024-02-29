@@ -50,9 +50,11 @@ public class GUI extends JPanel {
                         Mines tile = (Mines)e.getSource();
 
                         if(e.getButton() == MouseEvent.BUTTON1){
-                            if (Objects.equals(tile.getText(), "")) {
-                                if(Mines.minesList.contains(tile)){
-                                    Mines.showMines();
+                            if (Objects.equals(tile.getText(), "")) { // If tile is currently un-clicked
+                                if(Mines.minesList.contains(tile)){ // If tile contains a mine on click
+                                    Mines.showMines(); // show all current mines (flip all tiles)
+                                } else {
+                                    Mines.validateArea(tile.r, tile.c);
                                 }
                             }
                         }
