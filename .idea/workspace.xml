@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5cd71cb8-61d1-4270-b437-de5e6b84cf56" name="Changes" comment="Mines revealed">
+    <list default="true" id="5cd71cb8-61d1-4270-b437-de5e6b84cf56" name="Changes" comment="functionality in place">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/GUI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Mines.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Mines.java" afterDir="false" />
@@ -104,13 +104,38 @@
       <option name="project" value="LOCAL" />
       <updated>1709213239299</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="functionality in place">
+      <option name="closed" value="true" />
+      <created>1709221469807</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1709221469807</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Minesweeper setup" />
     <MESSAGE value="Base GUI" />
     <MESSAGE value="Mines revealed" />
-    <option name="LAST_COMMIT_MESSAGE" value="Mines revealed" />
+    <MESSAGE value="functionality in place" />
+    <option name="LAST_COMMIT_MESSAGE" value="functionality in place" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <dependency master-id="0" />
+          <properties class="java.lang.StackOverflowError" package="java.lang" />
+          <option name="timeStamp" value="2" />
+        </breakpoint>
+      </breakpoints>
+      <default-breakpoints>
+        <breakpoint type="java-exception">
+          <dependency id="0" />
+        </breakpoint>
+      </default-breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

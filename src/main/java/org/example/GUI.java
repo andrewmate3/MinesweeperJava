@@ -21,7 +21,9 @@ public class GUI extends JPanel {
     static Mines[][] mineMap = new Mines[maxScreenRows][maxScreenColumns];
     static JPanel tiles = new JPanel();
 
-    boolean gameOver = false;
+    static boolean gameOver = false;
+
+
 
     public GUI() {
 
@@ -43,7 +45,6 @@ public class GUI extends JPanel {
                 mines.setMargin(new Insets(0, 0, 0, 0));
                 tiles.add(mines);
                 Mines.placeMines();
-
                 mines.addMouseListener(new MouseAdapter() {
                     @Override
                     public void mousePressed(MouseEvent e) {
@@ -53,9 +54,17 @@ public class GUI extends JPanel {
                             if (Objects.equals(tile.getText(), "")) { // If tile is currently un-clicked
                                 if(Mines.minesList.contains(tile)){ // If tile contains a mine on click
                                     Mines.showMines(); // show all current mines (flip all tiles)
-                                } else {
+                                    gameOver = true;
+                                    gameOver();
+                                } else { // if you have not clicked a mine
                                     Mines.validateArea(tile.r, tile.c);
                                 }
+                            }
+                        } else if(e.getButton() == MouseEvent.BUTTON3){
+                            if(Objects.equals(tile.getText(), "") && tile.isEnabled()){
+                                tile.setText("\uD83D\uDEA9");
+                            } else if(Objects.equals(tile.getText(), "\uD83D\uDEA9")){
+                                tile.setText("");
                             }
                         }
                     }
@@ -63,7 +72,12 @@ public class GUI extends JPanel {
             }
         }
         game.setVisible(true);
-        Mines.placeMines();
+    }
+
+    public void gameOver(){
+        if (gameOver){
+            JOptionPane.showMessageDialog(this, "Game Over");
+        }
     }
 }
 
