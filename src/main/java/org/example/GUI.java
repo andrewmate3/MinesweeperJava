@@ -170,6 +170,8 @@ public class GUI extends JPanel {
 
     public void gameOver(){
         if (gameOver){
+            game.setVisible(false);
+            startView();
             JOptionPane.showMessageDialog(this, "Game Over");
         }
     }
