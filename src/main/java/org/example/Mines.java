@@ -81,6 +81,7 @@ public class Mines extends JButton {
 
         tile.setEnabled(false);
         counter += 1; // add a counter to record how many tiles are left
+        GUI.score += 1;
 
         for(int i = c - 1; i <= c + 1; i++){ // loop through the 8 x 8 grid
             minesTotal += checkProximity(r - 1, i); // validate top row

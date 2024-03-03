@@ -5,8 +5,14 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.Objects;
 
+/**
+ * @author Andrew Gilligan
+ * @version 1.0
+ * @since 03/03/2024
+ */
 
 public class GUI extends JPanel {
 
@@ -24,6 +30,15 @@ public class GUI extends JPanel {
     public static JFrame game = new JFrame();
     public JFrame start = new JFrame();
 
+    JLabel textLabel = new JLabel();
+
+    public static int score;
+
+    JPanel textPanel = new JPanel();
+
+    JMenuBar menuBar = new JMenuBar();
+
+    JMenu menu = new JMenu("Menu");
 
 
     public GUI() {
@@ -39,14 +54,17 @@ public class GUI extends JPanel {
         start.setLayout(new BorderLayout());
 
         JPanel titleTxt = new JPanel();
-        titleTxt.setBounds(100, 100, 600, 150);
+        titleTxt.setBounds(300, 400, 600, 150);
         titleTxt.setBackground(Color.black);
         JLabel titleLabel = new JLabel("Minesweeper");
         titleLabel.setForeground(Color.white);
+        titleTxt.setLayout(new BorderLayout());
+        titleLabel.setHorizontalAlignment(JLabel.CENTER);
 
         JPanel startButtonPanel = new JPanel();
-        startButtonPanel.setBounds(300, 400, 200, 100);
+        startButtonPanel.setBounds(250, 350, 200, 100);
         startButtonPanel.setBackground(Color.black);
+        startButtonPanel.setLayout(new BorderLayout());
 
         JButton startButton = new JButton("Start");
         startButton.setBackground(Color.black);
@@ -55,6 +73,7 @@ public class GUI extends JPanel {
         JPanel instructionButtonPanel = new JPanel();
         instructionButtonPanel.setBounds(250, 350, 200, 100);
         instructionButtonPanel.setBackground(Color.black);
+        instructionButtonPanel.setLayout(new BorderLayout());
 
         JButton instructionButton = new JButton("Instructions");
         instructionButton.setBackground(Color.black);
@@ -63,15 +82,16 @@ public class GUI extends JPanel {
         JPanel quitPanel = new JPanel();
         quitPanel.setBounds(200, 300, 200, 100);
         quitPanel.setBackground(Color.black);
+        quitPanel.setLayout(new BorderLayout());
 
         JButton quitButton = new JButton("Quit");
         quitButton.setBackground(Color.black);
         quitButton.setForeground(Color.white);
 
-        titleTxt.add(titleLabel);
-        startButtonPanel.add(startButton);
-        instructionButtonPanel.add(instructionButton);
-        quitPanel.add(quitButton);
+        titleTxt.add(titleLabel, BorderLayout.NORTH);
+        startButtonPanel.add(startButton, BorderLayout.SOUTH);
+        instructionButtonPanel.add(instructionButton, BorderLayout.SOUTH);
+        quitPanel.add(quitButton, BorderLayout.SOUTH);
         start.add(quitPanel);
         start.add(instructionButtonPanel);
         start.add(titleTxt);
@@ -108,9 +128,8 @@ public class GUI extends JPanel {
         start.setVisible(true);
     }
 
-
-
     public void gameView(){
+
         game.setSize(screenWidth, screenHeight);
         game.setLocationRelativeTo(null);
         game.setResizable(false);
@@ -154,7 +173,42 @@ public class GUI extends JPanel {
                 });
             }
         }
+        textLabel.setHorizontalAlignment(JLabel.CENTER);
+        textLabel.setText("Score: " + score);
+        textLabel.setOpaque(true);
+        textPanel.setLayout(new BorderLayout());
+        textPanel.add(textLabel);
+        game.add(textPanel, BorderLayout.NORTH);
         game.setVisible(true);
+
+        JMenuItem m1 = new JMenuItem("Save");
+        JMenuItem m2 = new JMenuItem("Exit to main menu");
+        JMenuItem m3 = new JMenuItem("Exit to desktop");
+
+        menu.add(m1);
+        menu.add(m2);
+        menu.add(m3);
+
+        menuBar.add(menu);
+        game.setJMenuBar(menuBar);
+
+        m2.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                if(e.getButton() == MouseEvent.BUTTON1){
+                    game.setVisible(false);
+                    startView();
+                }
+            }
+        });
+
+        m3.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                System.exit(0);
+            }
+        });
+
     }
 
     public void openURL(URI uri){
@@ -175,5 +229,6 @@ public class GUI extends JPanel {
             JOptionPane.showMessageDialog(this, "Game Over");
         }
     }
+
 }
 
