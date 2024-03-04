@@ -20,8 +20,8 @@ public class GUI extends JPanel {
     final int size = tileSize * scale; // screen size
     public static final int maxScreenColumns = 23; // define x and y
     public static final int maxScreenRows = 12; // define x and y
-    final int screenWidth = size * maxScreenColumns; // compute screen width
-    final int screenHeight = size * maxScreenRows; // compute screen height
+    public final int screenWidth = size * maxScreenColumns; // compute screen width
+    public final int screenHeight = size * maxScreenRows; // compute screen height
     static Mines[][] mineMap = new Mines[maxScreenRows][maxScreenColumns]; // initialise list to store mines
     static JPanel tiles = new JPanel(); // initialise tiles as a panel
 
@@ -238,6 +238,7 @@ public class GUI extends JPanel {
 
     public void gameOver(){
         if (gameOver){
+            game.setVisible(false);
             String [] data = {"Try again", "Exit to desktop"};
             int n = JOptionPane.showOptionDialog(this, "Game over", "Select an option", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, menu.getIcon(), data, data[0]);
             if(n == JOptionPane.YES_OPTION){
@@ -246,6 +247,10 @@ public class GUI extends JPanel {
                 System.exit(0);
             }
         }
+    }
+
+    public Dimension getTileSize(){
+        return tiles.getSize();
     }
 
 }
