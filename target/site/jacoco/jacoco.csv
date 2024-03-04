@@ -1,0 +1,11 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+TSI2,org.example,GUI.new MouseAdapter() {...},19,0,2,0,5,0,3,0,2,0
+TSI2,org.example,GUI.new MouseAdapter() {...},16,0,2,0,4,0,3,0,2,0
+TSI2,org.example,Main,11,0,0,0,5,0,3,0,3,0
+TSI2,org.example,GUI.new MouseAdapter() {...},10,0,2,0,4,0,3,0,2,0
+TSI2,org.example,GUI.new MouseAdapter() {...},61,0,14,0,15,0,9,0,2,0
+TSI2,org.example,GUI.new MouseAdapter() {...},13,0,0,0,4,0,2,0,2,0
+TSI2,org.example,GUI.new MouseAdapter() {...},17,0,2,0,5,0,3,0,2,0
+TSI2,org.example,GUI.new MouseAdapter() {...},6,0,0,0,3,0,2,0,2,0
+TSI2,org.example,Mines,205,27,28,6,47,6,20,3,4,2
+TSI2,org.example,GUI,476,15,16,0,110,4,14,1,6,1

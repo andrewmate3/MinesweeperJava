@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Mines.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">TSI2</a> &gt; <a href="index.source.html" class="el_package">org.example</a> &gt; <span class="el_source">Mines.java</span></div><h1>Mines.java</h1><pre class="source lang-java linenums">package org.example;
+
+import javax.swing.*;
+import java.util.ArrayList;
+import java.util.Random;
+
+/**
+ * @author Andrew Gilligan
+ * @version 1.0
+ * @since 02/03/2024
+ */
+
+public class Mines extends JButton {
+    public int r;
+    public int c;
+
+<span class="fc" id="L17">    static int counter = 0;</span>
+
+<span class="fc" id="L19">    public static int mineCount = 50;</span>
+
+    static ArrayList&lt;Mines&gt; minesList;
+
+    /**
+     * Constructor initialises co-ordinates of a mine
+     * @param r Map co-ordinates of a mine (rows/x)
+     * @param c Map co-ordinates of a mine (columns/y)
+     */
+<span class="nc" id="L28">    public Mines(int r, int c){</span>
+<span class="nc" id="L29">        this.r = r;</span>
+<span class="nc" id="L30">        this.c = c;</span>
+<span class="nc" id="L31">    }</span>
+
+    /**
+     * This method creates a list of mines and places mines at a
+     * random location on the board
+     */
+    public static void placeMines(){
+
+<span class="nc" id="L39">        minesList = new ArrayList&lt;&gt;(); // initialise array list</span>
+<span class="nc" id="L40">        Random rand = new Random(); // initialise random</span>
+
+<span class="nc bnc" id="L42" title="All 2 branches missed.">        for(int i = 0; i &lt; mineCount; i++){ //loop through list and add random values as mines</span>
+<span class="nc" id="L43">           int r = rand.nextInt(GUI.maxScreenRows);</span>
+<span class="nc" id="L44">           int c = rand.nextInt(GUI.maxScreenColumns);</span>
+
+<span class="nc" id="L46">           Mines mine = GUI.mineMap[r][c];</span>
+<span class="nc bnc" id="L47" title="All 2 branches missed.">           if(!minesList.contains(mine)){</span>
+<span class="nc" id="L48">               minesList.add(mine); // if space doesn't already have a mine, add</span>
+           }
+        }
+<span class="nc" id="L51">    }</span>
+
+    /**
+     * This method shows the mines as a bomb emoji (unicode)
+     */
+    public static void showMines(){
+<span class="nc bnc" id="L57" title="All 2 branches missed.">        for(Mines mine : minesList){ // iterate through the mine list</span>
+<span class="nc" id="L58">            mine.setText(&quot;\uD83D\uDCA3&quot;); // set text</span>
+<span class="nc" id="L59">        }</span>
+<span class="nc" id="L60">    }</span>
+
+    /**
+     * This method recursively checks an 8 x 8 grid around r, c to see if there
+     * is a mine and to set the text at the tile r, c for how many mines are in the grid
+     * @param r x co-ordinate of mine
+     * @param c y co-ordinate of mine
+     */
+    public static void validateArea(int r, int c){
+
+<span class="nc bnc" id="L70" title="All 8 branches missed.">        if (r &lt; 0 || r &gt;= GUI.maxScreenRows || c &lt; 0 || c &gt;= GUI.maxScreenColumns) {</span>
+<span class="nc" id="L71">            return; // if the new co-ordinate is off the grid or negative, cancel (recursion base case)</span>
+        }
+
+<span class="nc" id="L74">        Mines tile = GUI.mineMap[r][c]; // initialise tile</span>
+<span class="nc bnc" id="L75" title="All 2 branches missed.">        if(!tile.isEnabled()){ // if tile is already clicked, return (another base case)</span>
+<span class="nc" id="L76">            return;</span>
+        }
+<span class="nc" id="L78">        tile.setEnabled(false); // make sure tile is not enabled</span>
+<span class="nc" id="L79">        int minesTotal = 0; // initialise variable to store number of mines</span>
+
+
+<span class="nc" id="L82">        tile.setEnabled(false);</span>
+<span class="nc" id="L83">        counter += 1; // add a counter to record how many tiles are left</span>
+<span class="nc" id="L84">        GUI.score += 1;</span>
+
+<span class="nc bnc" id="L86" title="All 2 branches missed.">        for(int i = c - 1; i &lt;= c + 1; i++){ // loop through the 8 x 8 grid</span>
+<span class="nc" id="L87">            minesTotal += checkProximity(r - 1, i); // validate top row</span>
+<span class="nc" id="L88">            minesTotal += checkProximity(r + 1, i); // validate bottom row</span>
+<span class="nc bnc" id="L89" title="All 2 branches missed.">            if(i != c){</span>
+<span class="nc" id="L90">                minesTotal+= checkProximity(r, i); // validate middle row bar the original square (we know is not a mine)</span>
+            }
+        }
+
+<span class="nc bnc" id="L94" title="All 2 branches missed.">        if(minesTotal &gt; 0){ // if there are mines in the counter</span>
+<span class="nc" id="L95">            tile.setText(Integer.toString(minesTotal)); // set the text of the tile to the number of mines in the tiles' grid</span>
+
+        } else {
+
+<span class="nc" id="L99">            tile.setText(&quot;&quot;); // otherwise set this tile to blank (0 mines in its grid)</span>
+
+<span class="nc" id="L101">             validateArea(r - 1, c - 1); // recursively perform the same process to the grid to set the &quot;shockwave&quot; motion</span>
+<span class="nc" id="L102">             validateArea(r - 1, c);</span>
+<span class="nc" id="L103">             validateArea(r - 1, c + 1);</span>
+<span class="nc" id="L104">             validateArea(r ,c - 1);</span>
+<span class="nc" id="L105">             validateArea(r ,c + 1);</span>
+<span class="nc" id="L106">             validateArea(r + 1, c - 1);</span>
+<span class="nc" id="L107">             validateArea(r + 1, c);</span>
+<span class="nc" id="L108">             validateArea(r + 1, c + 1);</span>
+
+        }
+
+<span class="nc bnc" id="L112" title="All 2 branches missed.">        if(counter == (GUI.maxScreenRows * GUI.maxScreenColumns) - minesList.size()){ // finish the game once there are no tiles left</span>
+<span class="nc" id="L113">            JOptionPane.showMessageDialog(null, &quot;Mines cleared&quot;);</span>
+        }
+<span class="nc" id="L115">    }</span>
+
+    /**
+     * Either one of 3 cases are true in minesweeper
+     * 1- An adjacent tile is out of bounds of the map -&gt; return 0
+     * 2- An adjacent tile has a mine under it -&gt; increment the mine counter
+     * 3- An adjacent tile has no mine under it -&gt; return 0
+     * @param r x co-ordinates of tile
+     * @param c y co-ordinates of tile
+     * @return return a 1 or 0 dependent on if there is a mine under a tile so value can be added to mine counter
+     */
+    public static int checkProximity(int r, int c) {
+
+<span class="pc bpc" id="L128" title="3 of 8 branches missed.">        if(r &lt; 0 || r &gt;= GUI.maxScreenRows || c &lt; 0 || c &gt;= GUI.maxScreenColumns){</span>
+<span class="fc" id="L129">            return 0;</span>
+        }
+<span class="pc bpc" id="L131" title="1 of 2 branches missed.">        if(minesList.contains(GUI.mineMap[r][c])){</span>
+<span class="fc" id="L132">            return 1;</span>
+        }
+<span class="nc" id="L134">            return 0;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
